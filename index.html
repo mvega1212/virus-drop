@@ -6,55 +6,56 @@
 <meta name="theme-color" content="#080a12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Virus Drop">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<title>Virus Drop</title>
+<meta name="apple-mobile-web-app-title" content="Virus Lab">
+<link rel="manifest" href="manifest.webmanifest?v=4">
+<link rel="apple-touch-icon" href="icon-180.png?v=4">
+<title>Virus Lab</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#080a12;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;min-height:100%;touch-action:manipulation}
-body{padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));display:flex;justify-content:center}
-.app{width:min(100%,430px)}header{display:flex;justify-content:space-between;align-items:center;padding:8px 4px 12px}.brand{font-size:24px;font-weight:900;letter-spacing:-.5px}.sub{font-size:11px;color:#9ca3b8}
-.board-wrap{background:#171b28;border:1px solid #30364a;border-radius:20px;padding:10px;box-shadow:0 12px 35px #0008}
-canvas{display:block;width:100%;height:auto;border-radius:12px;background:#05060a}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:9px 0}.stat{background:#171b28;border:1px solid #30364a;border-radius:12px;padding:8px;text-align:center}.label{font-size:9px;text-transform:uppercase;color:#9ca3b8}.num{font-size:19px;font-weight:900;margin-top:2px}
-.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.controls button,.start button{height:48px;border:0;border-radius:13px;background:#292f42;color:white;font-size:20px;font-weight:900}.controls .wide{grid-column:1/-1;font-size:14px}.controls button:active,.start button:active{transform:scale(.97);background:#3a425a}
-.start{position:fixed;inset:0;background:#080a12;display:flex;align-items:center;justify-content:center;padding:25px;z-index:5}.start-card{width:min(100%,370px);text-align:center;background:#171b28;border:1px solid #30364a;border-radius:24px;padding:30px 22px}.logo{font-size:58px;margin-bottom:8px}.start h1{font-size:34px;margin:0}.start p{color:#aeb5c7;line-height:1.5;font-size:14px}.start button{width:100%;background:#7c3aed;font-size:16px;margin-top:10px}
-.hidden{display:none!important}.hint{text-align:center;color:#8f96aa;font-size:11px;margin-top:10px;line-height:1.4}
+*{box-sizing:border-box}html,body{margin:0;background:#080a12;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;min-height:100%;touch-action:manipulation}body{padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));display:flex;justify-content:center}.app{width:min(100%,430px)}header{display:flex;justify-content:space-between;align-items:center;padding:8px 4px 12px}.brand{font-size:24px;font-weight:900}.sub{font-size:11px;color:#9ca3b8}.board-wrap{background:#171b28;border:1px solid #30364a;border-radius:20px;padding:10px;box-shadow:0 12px 35px #0008}canvas{display:block;width:100%;height:auto;border-radius:12px;background:#05060a;touch-action:none}.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:9px 0}.stat{background:#171b28;border:1px solid #30364a;border-radius:12px;padding:8px;text-align:center}.label{font-size:9px;text-transform:uppercase;color:#9ca3b8}.num{font-size:19px;font-weight:900;margin-top:2px}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.controls button{height:48px;border:0;border-radius:13px;background:#292f42;color:white;font-size:20px;font-weight:900;-webkit-tap-highlight-color:transparent}.controls .wide{grid-column:1/-1;font-size:14px}.controls button:active{transform:scale(.97);background:#3a425a}.start{position:fixed;inset:0;background:#080a12;display:flex;align-items:center;justify-content:center;padding:25px;z-index:5}.start-card{width:min(100%,370px);text-align:center;background:#171b28;border:1px solid #30364a;border-radius:24px;padding:30px 22px}.logo{font-size:58px}.start h1{font-size:34px;margin:0}.start p{color:#aeb5c7;line-height:1.5;font-size:14px}.start button{width:100%;height:52px;border:0;border-radius:13px;background:#7c3aed;color:white;font-size:16px;font-weight:900;margin-top:10px}.hidden{display:none!important}.hint{text-align:center;color:#8f96aa;font-size:11px;margin-top:10px;line-height:1.4}
 </style>
 </head>
 <body>
 <div class="app">
 <header><div><div class="brand">✦ VIRUS LAB</div><div class="sub">MATCH • DROP • CLEAR</div></div><div class="sub">BEST <b id="bestTop">0</b></div></header>
-<div class="board-wrap"><canvas id="board" width="360" height="540" aria-label="Virus Drop board"></canvas></div>
+<div class="board-wrap"><canvas id="board" width="360" height="540"></canvas></div>
 <div class="stats"><div class="stat"><div class="label">Score</div><div class="num" id="score">0</div></div><div class="stat"><div class="label">Level</div><div class="num" id="level">1</div></div><div class="stat"><div class="label">Viruses</div><div class="num" id="viruses">8</div></div></div>
 <div class="controls"><button id="left">◀</button><button id="rotate">↻</button><button id="right">▶</button><button class="wide" id="drop">DROP ▼</button><button class="wide" id="pause">PAUSE</button><button class="wide" id="new">NEW GAME</button></div>
-<div class="hint">Match 4+ of one color horizontally or vertically. Tap the board: left side moves left, right side moves right, center rotates.</div>
+<div class="hint">Use ◀ ▶ to move, ↻ to rotate, and DROP to fall. Clear 4+ matching colors.</div>
 </div>
-<div class="start" id="start"><div class="start-card"><div class="logo">🧪🦠</div><h1>VIRUS</h1><p>THE CURE IS IN YOUR HANDS<br>Match • Drop • Clear</p><button id="startBtn">▶ START GAME</button></div></div>
+<div class="start" id="start"><div class="start-card"><div class="logo">🧪🦠</div><h1>VIRUS LAB</h1><p>THE CURE IS IN YOUR HANDS<br>Match • Drop • Clear</p><button id="startBtn">▶ START GAME</button></div></div>
 <script>
-(()=>{const $=id=>document.getElementById(id),cv=$("board"),ctx=cv.getContext("2d"),W=8,H=12,S=45,cols=["#ef3b8f","#42a5f5","#f2df27"];let g,p,next,score=0,level=1,paused=false,over=false,last=0,acc=0;
-const make=()=>({x:3,y:0,o:0,a:(Math.random()*3)|0,b:(Math.random()*3)|0});
-const cells=z=>z.o?[[z.x,z.y,z.a],[z.x,z.y+1,z.b]]:[[z.x,z.y,z.a],[z.x+1,z.y,z.b]];
-const ok=z=>cells(z).every(([x,y])=>x>=0&&x<W&&y>=0&&y<H&&!g[y][x]);
-function addViruses(n){let k=0;while(k<n){let x=(Math.random()*W)|0,y=7+((Math.random()*5)|0);if(!g[y][x]){g[y][x]={c:(Math.random()*3)|0,v:true};k++}}}
-function spawn(){p=next||make();next=make();p.x=3;p.y=0;p.o=0;if(!ok(p))over=true}
-function reset(){if($("bestTop"))$("bestTop").textContent=localStorage.virusDropBest||0;g=Array.from({length:H},()=>Array(W).fill(null));score=0;level=1;paused=false;over=false;addViruses(8);next=make();spawn();$("start").classList.add("hidden");$("pause").textContent="PAUSE";update()}
-function move(dx){if(!p||paused||over)return;let z={...p,x:p.x+dx};if(ok(z))p=z}
-function rotate(){if(!p||paused||over)return;let z={...p,o:p.o?0:1};if(ok(z))p=z;else{z.x+=1;if(ok(z))p=z}}
-function drop(){if(!p||paused||over)return;while(ok({...p,y:p.y+1}))p.y++;lock()}
-function lock(){cells(p).forEach(([x,y,c])=>g[y][x]={c,v:false});p=null;clearMatches()}
-function clearMatches(){let rem=new Set();for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(g[y][x]){let c=g[y][x].c,h=1,v=1;for(let i=x-1;i>=0&&g[y][i]?.c===c;i--)h++;for(let i=x+1;i<W&&g[y][i]?.c===c;i++)h++;for(let i=y-1;i>=0&&g[i][x]?.c===c;i--)v++;for(let i=y+1;i<H&&g[i][x]?.c===c;i++)v++;if(h>=4)for(let i=0;i<W;i++)if(g[y][i]?.c===c)rem.add(y+","+i);if(v>=4)for(let i=0;i<H;i++)if(g[i][x]?.c===c)rem.add(i+","+x)}
-if(!rem.size){fall();if(!g.flat().some(z=>z?.v)){level++;score+=1000*level;addViruses(Math.min(4+level*2,24))}spawn();update();return}
-score+=rem.size*100*level;rem.forEach(k=>{let [y,x]=k.split(",").map(Number);g[y][x]=null});fall();setTimeout(clearMatches,80);update()}
-function fall(){for(let x=0;x<W;x++)for(let y=H-2;y>=0;y--)if(g[y][x]&&!g[y+1][x]){let q=y;while(q+1<H&&!g[q+1][x]){g[q+1][x]=g[q][x];g[q][x]=null;q++}}}
-function update(){$("score").textContent=score.toLocaleString();$("level").textContent=level;$("viruses").textContent=g.flat().filter(z=>z?.v).length}
-function drawCell(x,y,z){ctx.fillStyle=cols[z.c];ctx.beginPath();ctx.roundRect(x*S+3,y*S+3,S-6,S-6,9);ctx.fill();ctx.fillStyle="#ffffff55";ctx.fillRect(x*S+9,y*S+8,4,18);if(z.v){ctx.fillStyle="#151515";ctx.beginPath();ctx.arc(x*S+17,y*S+22,3,0,7);ctx.arc(x*S+29,y*S+22,3,0,7);ctx.fill()}}
-function draw(){ctx.clearRect(0,0,cv.width,cv.height);for(let y=0;y<H;y++)for(let x=0;x<W;x++){ctx.strokeStyle="#171b26";ctx.strokeRect(x*S,y*S,S,S);if(g[y][x])drawCell(x,y,g[y][x])}if(p&&!paused&&!over)cells(p).forEach(([x,y,c])=>drawCell(x,y,{c,v:false}));if(paused||over){ctx.fillStyle="#000b";ctx.fillRect(0,0,cv.width,cv.height);ctx.textAlign="center";ctx.fillStyle="#fff";ctx.font="900 28px system-ui";ctx.fillText(over?"GAME OVER":"PAUSED",180,260);ctx.font="14px system-ui";ctx.fillText(over?"Tap NEW GAME":"Tap PAUSE to resume",180,290)}}
-function loop(t){let dt=t-last;last=t;if(!paused&&!over&&p){acc+=dt;if(acc>Math.max(130,650-level*35)){acc=0;let z={...p,y:p.y+1};if(ok(z))p=z;else lock()}}draw();requestAnimationFrame(loop)}
-$("startBtn").onclick=reset;$("new").onclick=reset;$("left").onclick=()=>move(-1);$("right").onclick=()=>move(1);$("rotate").onclick=rotate;$("drop").onclick=drop;$("pause").onclick=()=>{if(!over){paused=!paused;$("pause").textContent=paused?"RESUME":"PAUSE"}};
-cv.addEventListener("pointerdown",e=>{let r=cv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width;if(x<.33)move(-1);else if(x>.67)move(1);else rotate()});
-document.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"," "].includes(e.key))e.preventDefault();if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1);if(e.key==="ArrowUp")rotate();if(e.key==="ArrowDown"||e.key===" ")drop()});
-if($("bestTop"))$("bestTop").textContent=localStorage.virusDropBest||0;requestAnimationFrame(loop);
+(function(){
+'use strict';
+var cv=document.getElementById('board'),ctx=cv.getContext('2d'),W=8,H=12,S=45;
+var colors=['#ef3b8f','#42a5f5','#f2df27'];
+var grid=[],piece=null,score=0,level=1,paused=false,gameOver=false,timer=null,lastDrop=0;
+function freshGrid(){grid=[];for(var y=0;y<H;y++){grid.push([]);for(var x=0;x<W;x++)grid[y].push(null)}}
+function randPiece(){return{x:3,y:0,o:0,a:Math.floor(Math.random()*3),b:Math.floor(Math.random()*3)}}
+function cells(p){return p.o?[[p.x,p.y,p.a],[p.x,p.y+1,p.b]]:[[p.x,p.y,p.a],[p.x+1,p.y,p.b]]}
+function valid(p){var c=cells(p);for(var i=0;i<c.length;i++){var x=c[i][0],y=c[i][1];if(x<0||x>=W||y<0||y>=H||grid[y][x])return false}return true}
+function addViruses(n){var spots=[];for(var y=6;y<H;y++)for(var x=0;x<W;x++)if(!grid[y][x])spots.push([x,y]);for(var i=spots.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=spots[i];spots[i]=spots[j];spots[j]=t}n=Math.min(n,spots.length);for(i=0;i<n;i++){var s=spots[i];grid[s[1]][s[0]]={c:Math.floor(Math.random()*3),v:true}}}
+function spawn(){piece=randPiece();if(!valid(piece)){gameOver=true;saveBest();}}
+function saveBest(){try{var old=Number(localStorage.getItem('virusDropBest')||0);if(score>old)localStorage.setItem('virusDropBest',String(score));document.getElementById('bestTop').textContent=Math.max(score,old)}catch(e){}}
+function startGame(){freshGrid();score=0;level=1;paused=false;gameOver=false;addViruses(8);spawn();document.getElementById('start').classList.add('hidden');document.getElementById('pause').textContent='PAUSE';update();draw()}
+function move(dx){if(!piece||paused||gameOver)return;var q={x:piece.x+dx,y:piece.y,o:piece.o,a:piece.a,b:piece.b};if(valid(q)){piece=q;draw()}}
+function rotate(){if(!piece||paused||gameOver)return;var q={x:piece.x,y:piece.y,o:piece.o?0:1,a:piece.a,b:piece.b};if(valid(q))piece=q;else{q.x++;if(valid(q))piece=q}draw()}
+function hardDrop(){if(!piece||paused||gameOver)return;while(valid({x:piece.x,y:piece.y+1,o:piece.o,a:piece.a,b:piece.b}))piece.y++;lock()}
+function lock(){var c=cells(piece);for(var i=0;i<c.length;i++)grid[c[i][1]][c[i][0]]={c:c[i][2],v:false};piece=null;resolve()}
+function resolve(){var remove={};
+for(var y=0;y<H;y++)for(var x=0;x<W;x++)if(grid[y][x]){var col=grid[y][x].c,h=[x],v=[y],i;
+for(i=x-1;i>=0&&grid[y][i]&&grid[y][i].c===col;i--)h.push(i);for(i=x+1;i<W&&grid[y][i]&&grid[y][i].c===col;i++)h.push(i);
+for(i=y-1;i>=0&&grid[i][x]&&grid[i][x].c===col;i--)v.push(i);for(i=y+1;i<H&&grid[i][x]&&grid[i][x].c===col;i++)v.push(i);
+if(h.length>=4)for(i=0;i<h.length;i++)remove[y+','+h[i]]=1;if(v.length>=4)for(i=0;i<v.length;i++)remove[v[i]+','+x]=1}
+var keys=Object.keys(remove);if(!keys.length){fall();if(countViruses()===0){level++;score+=1000*level;addViruses(Math.min(4+level*2,18))}spawn();update();draw();return}
+for(var k=0;k<keys.length;k++){var parts=keys[k].split(',');grid[Number(parts[0])][Number(parts[1])]=null}score+=keys.length*100*level;fall();update();draw();setTimeout(resolve,120)}
+function fall(){for(var x=0;x<W;x++)for(var y=H-2;y>=0;y--)if(grid[y][x]&&!grid[y+1][x]){var q=y;while(q+1<H&&!grid[q+1][x]){grid[q+1][x]=grid[q][x];grid[q][x]=null;q++}}}
+function countViruses(){var n=0;for(var y=0;y<H;y++)for(var x=0;x<W;x++)if(grid[y][x]&&grid[y][x].v)n++;return n}
+function update(){document.getElementById('score').textContent=score.toLocaleString();document.getElementById('level').textContent=level;document.getElementById('viruses').textContent=countViruses()}
+function cell(x,y,z){ctx.fillStyle=colors[z.c];if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x*S+3,y*S+3,S-6,S-6,9);ctx.fill()}else{ctx.fillRect(x*S+3,y*S+3,S-6,S-6)}ctx.fillStyle='rgba(255,255,255,.35)';ctx.fillRect(x*S+9,y*S+8,4,18);if(z.v){ctx.fillStyle='#151515';ctx.beginPath();ctx.arc(x*S+17,y*S+22,3,0,Math.PI*2);ctx.arc(x*S+29,y*S+22,3,0,Math.PI*2);ctx.fill()}}
+function draw(){ctx.clearRect(0,0,cv.width,cv.height);for(var y=0;y<H;y++)for(var x=0;x<W;x++){ctx.strokeStyle='#171b26';ctx.strokeRect(x*S,y*S,S,S);if(grid[y][x])cell(x,y,grid[y][x])}if(piece&&!paused&&!gameOver){var c=cells(piece);for(var i=0;i<c.length;i++)cell(c[i][0],c[i][1],{c:c[i][2],v:false})}if(paused||gameOver){ctx.fillStyle='rgba(0,0,0,.72)';ctx.fillRect(0,0,cv.width,cv.height);ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='900 28px system-ui';ctx.fillText(gameOver?'GAME OVER':'PAUSED',180,260);ctx.font='14px system-ui';ctx.fillText(gameOver?'Tap NEW GAME':'Tap PAUSE to resume',180,290)}}
+function tick(){if(!piece||paused||gameOver)return;var now=Date.now(),speed=Math.max(140,650-(level-1)*35);if(now-lastDrop>=speed){lastDrop=now;var q={x:piece.x,y:piece.y+1,o:piece.o,a:piece.a,b:piece.b};if(valid(q)){piece=q}else lock();draw()}}
+function setup(){freshGrid();addViruses(8);update();draw();try{document.getElementById('bestTop').textContent=localStorage.getItem('virusDropBest')||'0'}catch(e){};document.getElementById('startBtn').addEventListener('click',startGame);document.getElementById('new').addEventListener('click',startGame);document.getElementById('left').addEventListener('click',function(){move(-1)});document.getElementById('right').addEventListener('click',function(){move(1)});document.getElementById('rotate').addEventListener('click',rotate);document.getElementById('drop').addEventListener('click',hardDrop);document.getElementById('pause').addEventListener('click',function(){if(gameOver)return;paused=!paused;document.getElementById('pause').textContent=paused?'RESUME':'PAUSE';draw()});cv.addEventListener('pointerdown',function(e){e.preventDefault();var r=cv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width;if(x<.33)move(-1);else if(x>.67)move(1);else rotate()});setInterval(tick,50)}
+setup();
 })();
 </script>
 </body></html>
