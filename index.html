@@ -24,21 +24,21 @@ canvas{display:block;width:100%;height:auto;border-radius:12px;background:#05060
 </head>
 <body>
 <div class="app">
-<header><div><div class="brand">🦠 Virus Drop</div><div class="sub">Clear every virus</div></div><div class="sub" id="installHint">Home Screen Game</div></header>
+<header><div><div class="brand">✦ VIRUS LAB</div><div class="sub">MATCH • DROP • CLEAR</div></div><div class="sub">BEST <b id="bestTop">0</b></div></header>
 <div class="board-wrap"><canvas id="board" width="360" height="540" aria-label="Virus Drop board"></canvas></div>
 <div class="stats"><div class="stat"><div class="label">Score</div><div class="num" id="score">0</div></div><div class="stat"><div class="label">Level</div><div class="num" id="level">1</div></div><div class="stat"><div class="label">Viruses</div><div class="num" id="viruses">8</div></div></div>
 <div class="controls"><button id="left">◀</button><button id="rotate">↻</button><button id="right">▶</button><button class="wide" id="drop">DROP ▼</button><button class="wide" id="pause">PAUSE</button><button class="wide" id="new">NEW GAME</button></div>
 <div class="hint">Match 4+ of one color horizontally or vertically. Tap the board: left side moves left, right side moves right, center rotates.</div>
 </div>
-<div class="start" id="start"><div class="start-card"><div class="logo">🦠</div><h1>Virus Drop</h1><p>A touch-friendly falling-capsule puzzle game made for your iPhone.</p><button id="startBtn">START GAME</button></div></div>
+<div class="start" id="start"><div class="start-card"><div class="logo">🧪🦠</div><h1>VIRUS</h1><p>THE CURE IS IN YOUR HANDS<br>Match • Drop • Clear</p><button id="startBtn">▶ START GAME</button></div></div>
 <script>
 (()=>{const $=id=>document.getElementById(id),cv=$("board"),ctx=cv.getContext("2d"),W=8,H=12,S=45,cols=["#ef3b8f","#42a5f5","#f2df27"];let g,p,next,score=0,level=1,paused=false,over=false,last=0,acc=0;
-g=Array.from({length:H},()=>Array(W).fill(null));const make=()=>({x:3,y:0,o:0,a:(Math.random()*3)|0,b:(Math.random()*3)|0});
+const make=()=>({x:3,y:0,o:0,a:(Math.random()*3)|0,b:(Math.random()*3)|0});
 const cells=z=>z.o?[[z.x,z.y,z.a],[z.x,z.y+1,z.b]]:[[z.x,z.y,z.a],[z.x+1,z.y,z.b]];
 const ok=z=>cells(z).every(([x,y])=>x>=0&&x<W&&y>=0&&y<H&&!g[y][x]);
 function addViruses(n){let k=0;while(k<n){let x=(Math.random()*W)|0,y=7+((Math.random()*5)|0);if(!g[y][x]){g[y][x]={c:(Math.random()*3)|0,v:true};k++}}}
 function spawn(){p=next||make();next=make();p.x=3;p.y=0;p.o=0;if(!ok(p))over=true}
-function reset(){g=Array.from({length:H},()=>Array(W).fill(null));score=0;level=1;paused=false;over=false;addViruses(8);next=make();spawn();$("start").classList.add("hidden");$("pause").textContent="PAUSE";update()}
+function reset(){if($("bestTop"))$("bestTop").textContent=localStorage.virusDropBest||0;g=Array.from({length:H},()=>Array(W).fill(null));score=0;level=1;paused=false;over=false;addViruses(8);next=make();spawn();$("start").classList.add("hidden");$("pause").textContent="PAUSE";update()}
 function move(dx){if(!p||paused||over)return;let z={...p,x:p.x+dx};if(ok(z))p=z}
 function rotate(){if(!p||paused||over)return;let z={...p,o:p.o?0:1};if(ok(z))p=z;else{z.x+=1;if(ok(z))p=z}}
 function drop(){if(!p||paused||over)return;while(ok({...p,y:p.y+1}))p.y++;lock()}
@@ -54,7 +54,7 @@ function loop(t){let dt=t-last;last=t;if(!paused&&!over&&p){acc+=dt;if(acc>Math.
 $("startBtn").onclick=reset;$("new").onclick=reset;$("left").onclick=()=>move(-1);$("right").onclick=()=>move(1);$("rotate").onclick=rotate;$("drop").onclick=drop;$("pause").onclick=()=>{if(!over){paused=!paused;$("pause").textContent=paused?"RESUME":"PAUSE"}};
 cv.addEventListener("pointerdown",e=>{let r=cv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width;if(x<.33)move(-1);else if(x>.67)move(1);else rotate()});
 document.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"," "].includes(e.key))e.preventDefault();if(e.key==="ArrowLeft")move(-1);if(e.key==="ArrowRight")move(1);if(e.key==="ArrowUp")rotate();if(e.key==="ArrowDown"||e.key===" ")drop()});
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}requestAnimationFrame(loop);
+if($("bestTop"))$("bestTop").textContent=localStorage.virusDropBest||0;requestAnimationFrame(loop);
 })();
 </script>
 </body></html>
